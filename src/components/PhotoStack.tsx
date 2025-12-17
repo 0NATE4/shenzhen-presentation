@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, useMotionValue, useTransform, animate, AnimatePresence, type PanInfo } from 'framer-motion';
-import { MapPin, Smartphone } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 // Import local assets
 import bicyclesImg from '../assets/bicycles.jpg';
