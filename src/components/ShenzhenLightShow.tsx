@@ -148,20 +148,22 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
 
   // --- PATH DEFINITION FOR CITIZEN CENTER ---
   // A smooth, majestic arch where the center is the HIGHEST point.
+  // Updated: Fills screen width (0-1920) and ends curve upwards to ~half peak height.
+  // Peak Y: 240. Ends Y: ~330 (approx half height relative to a base of ~420-500).
   const citizenCenterPath = `
-    M 100 420 
-    C 400 420, 600 240, 960 240
-    S 1520 420, 1820 420
-    L 1820 500
-    C 1520 500, 1320 320, 960 320
-    S 400 500, 100 500
+    M 0 330 
+    C 400 330, 600 240, 960 240
+    S 1520 330, 1920 330
+    L 1920 410
+    C 1520 410, 1320 320, 960 320
+    S 400 410, 0 410
     Z
   `;
 
   const citizenCenterStroke = `
-    M 100 420 
-    C 400 420, 600 240, 960 240
-    S 1520 420, 1820 420
+    M 0 330 
+    C 400 330, 600 240, 960 240
+    S 1520 330, 1920 330
   `;
 
   // --- PATH DEFINITION FOR LEFT TOWER (Restored Curve + Flat Top + Grounded) ---
@@ -237,10 +239,12 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
             </linearGradient>
 
             <linearGradient id="screenGradient" x1="0" y1="1" x2="0" y2="0">
-               <stop offset="0%" stopColor="#020617" />
-               <motion.stop offset="40%" animate={{ stopColor: ["#3b0764", "#1e3a8a", "#0f766e", "#3b0764"] }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} /> 
-               <motion.stop offset="60%" animate={{ stopColor: ["#22d3ee", "#a855f7", "#ef4444", "#22d3ee"] }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} /> 
-               <stop offset="100%" stopColor="#020617" />
+               {/* Multi-stop gradient for internal variation "gradients within" */}
+               <motion.stop offset="0%" animate={{ stopColor: ["#3b0764", "#1e3a8a", "#0f766e", "#3b0764"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} />
+               <motion.stop offset="25%" animate={{ stopColor: ["#1e3a8a", "#0f766e", "#3b0764", "#1e3a8a"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} />
+               <motion.stop offset="50%" animate={{ stopColor: ["#22d3ee", "#a855f7", "#ef4444", "#22d3ee"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} />
+               <motion.stop offset="75%" animate={{ stopColor: ["#a855f7", "#ef4444", "#22d3ee", "#a855f7"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} />
+               <motion.stop offset="100%" animate={{ stopColor: ["#ef4444", "#22d3ee", "#a855f7", "#ef4444"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} />
             </linearGradient>
 
             {/* --- FILTERS (Glow) --- */}
@@ -301,11 +305,9 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
           
           {/* LED Screen & Effects (Clipped) */}
           <g clipPath="url(#leftTowerClip)">
-             <motion.rect 
+             <rect 
                 x="0" y="0" width="1920" height="1080"
-                fill="url(#screenGradient)" opacity="0.8"
-                animate={{ y: [500, -500] }}
-                transition={{ duration: 8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+                fill="url(#screenGradient)" opacity="0.9"
              />
              <rect x="0" y="0" width="1920" height="1080" fill="url(#pixelGrid)" opacity="0.4" />
           </g>
@@ -347,11 +349,9 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
           </g>
           
           <g clipPath="url(#rightTowerClip)">
-             <motion.rect 
+             <rect 
                 x="0" y="0" width="1920" height="1080"
-                fill="url(#screenGradient)" opacity="0.9"
-                animate={{ y: [800, -200] }}
-                transition={{ duration: 6, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+                fill="url(#screenGradient)" opacity="0.95"
              />
              <rect x="0" y="0" width="1920" height="1080" fill="url(#pixelGrid)" opacity="0.4" />
           </g>
@@ -371,7 +371,7 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
              {/* 1. Glow Aura */}
              <motion.path
                d={citizenCenterPath}
-               fill="#ef4444"
+               fill="#f97316"
                filter="url(#strongGlow)"
                opacity="0.6"
                animate={{ opacity: [0.4, 0.7, 0.4] }}
@@ -381,7 +381,7 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
              {/* 2. Main Structure Fill */}
              <path
                d={citizenCenterPath}
-               fill="url(#centerWingGrad)"
+               fill="#f97316"
              />
 
              {/* 3. Structural Ribs (Top Stroke) */}
