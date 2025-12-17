@@ -236,12 +236,8 @@ const DroneSwarm = ({ isActive = true }: DroneSwarmProps) => {
       
       {/* Overlay UI for context */}
       <div className="absolute bottom-10 left-0 right-0 text-center pointer-events-none">
-        <p className="text-white/50 text-sm font-mono tracking-widest uppercase">
-          Drone Swarm Simulation // Active Units: {PARTICLE_COUNT}
-        </p>
-        <p className="text-white/30 text-xs mt-1">
-          State: {mode === 'EN' ? 'English Formation' : 'Chinese Formation'}
-        </p>
+    
+       
       </div>
     </div>
   );

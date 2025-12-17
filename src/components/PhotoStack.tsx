@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, useMotionValue, useTransform, animate, AnimatePresence, type PanInfo } from 'framer-motion';
-import { MapPin, Smartphone, CheckCircle } from 'lucide-react';
+import { MapPin, Smartphone } from 'lucide-react';
 
 // Import local assets
 import bicyclesImg from '../assets/bicycles.jpg';
@@ -224,7 +224,9 @@ const Confetti = () => {
           transition={{ 
             duration: Math.random() * 2 + 2, 
             ease: "easeOut",
-            delay: Math.random() * 0.5
+            delay: Math.random() * 0.5,
+            repeat: Infinity,
+            repeatDelay: Math.random() * 2
           }}
           className="absolute w-3 h-3 rounded-sm"
           style={{
@@ -270,13 +272,13 @@ const PhotoStack = () => {
       <div className="absolute inset-0 bg-radial-gradient from-slate-900/0 via-slate-950/80 to-slate-950 pointer-events-none"></div>
 
       <div className="z-10 flex flex-col items-center mb-10">
-        <div className="flex items-center gap-2 mb-2 text-cyan-400">
-           <Smartphone size={20} />
-           <span className="font-mono text-xs uppercase tracking-[0.2em]">System.Memories</span>
-        </div>
-        <h1 className="text-4xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-500">
+        <motion.h1 
+          animate={{ opacity: isFinished ? 0 : 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-4xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-500"
+        >
           Photo Stream
-        </h1>
+        </motion.h1>
       </div>
 
       <div className="relative w-96 h-96 flex justify-center items-center perspective-1000">
@@ -303,13 +305,10 @@ const PhotoStack = () => {
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="text-center flex flex-col items-center justify-center p-8 w-96 h-64 bg-slate-900/50 backdrop-blur-md rounded-2xl border border-slate-800 shadow-2xl relative z-20"
+              className="text-center flex flex-col items-center justify-center relative z-20"
             >
-              <div className="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 text-cyan-400 ring-1 ring-cyan-500/50">
-                 <CheckCircle size={32} />
-              </div>
-              <h2 className="text-2xl font-bold text-white mb-2">Thank You</h2>
-              <p className="text-slate-400 font-light">End of presentation.</p>
+              <h2 className="text-7xl font-bold text-white mb-4 tracking-tight">Thank You</h2>
+              <p className="text-slate-400 text-xl font-light">End of presentation.</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -317,13 +316,7 @@ const PhotoStack = () => {
 
       {isFinished && <Confetti />}
       
-      {/* Footer / Instructions */}
-      {!isFinished && (
-        <div className="mt-16 text-center text-slate-600 text-xs max-w-xs font-mono">
-          <p>Interaction Mode: [Active]</p>
-          <p className="mt-2 text-cyan-900/50">Drag card horizontally to dismiss</p>
-        </div>
-      )}
+
     </div>
   );
 };

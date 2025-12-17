@@ -1,72 +1,66 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
+import BioDigitalScanner from './BioDigitalScanner';
 
 const ProblemSolution = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.5 });
+  const isInView = useInView(ref, { amount: 0.3 });
+  const [isSolved, setIsSolved] = useState(false);
+
+  // Auto-trigger solution when in view after a delay, or allow manual toggle
+  useEffect(() => {
+    if (!isInView) {
+      setIsSolved(false);
+    }
+  }, [isInView]);
 
   return (
-    <section ref={ref} className="snap-section flex w-full bg-[#0a0a0a] overflow-hidden relative">
+    <section ref={ref} className="snap-section flex w-full h-screen bg-[#0a0a0a] overflow-hidden relative">
       
-      {/* LEFT SIDE: PROBLEM */}
+      {/* LEFT SIDE: PROBLEM TEXT */}
       <motion.div 
-        className="w-1/2 h-full flex flex-col items-center justify-center p-12 border-r border-white/5 relative z-10"
+        className="absolute left-0 top-0 w-1/3 h-full flex flex-col justify-center p-12 z-20 pointer-events-none"
         animate={{ 
-          filter: isInView ? "blur(8px)" : "blur(0px)",
-          opacity: isInView ? 0.4 : 1,
-          scale: isInView ? 0.95 : 1
+          opacity: isSolved ? 0.2 : 1,
+          x: isSolved ? -50 : 0
         }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
+        transition={{ duration: 0.8 }}
       >
-        <div className="max-w-md text-center">
-          <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/10 text-red-500 border border-red-500/20">
-            <AlertTriangle size={40} />
+        <div className="max-w-md">
+          <div className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 text-red-500 border border-red-500/20">
+            <AlertTriangle size={32} />
           </div>
-          <h2 className="text-4xl font-bold text-red-500 mb-4">Manual Diagnosis</h2>
-          <p className="text-xl text-slate-400 leading-relaxed">
-            Slow, error-prone, and expensive. Doctors spend <span className="text-white font-bold">40%</span> of their time on paperwork.
+          <h2 className="text-3xl font-bold text-red-500 mb-4">Manual Diagnosis</h2>
+          <p className="text-lg text-slate-400 leading-relaxed">
+            Subjective. Inconsistent. <br/>
+            <span className="text-white">High latency</span> in critical windows.
           </p>
-          
-          {/* Visual Chaos */}
-          <div className="mt-12 grid grid-cols-2 gap-4 opacity-50">
-             {[1,2,3,4].map((i) => (
-               <div key={i} className="h-24 bg-white/5 rounded-lg border border-white/5 animate-pulse" style={{ animationDelay: `${i * 0.2}s`}} />
-             ))}
-          </div>
         </div>
       </motion.div>
 
-      {/* RIGHT SIDE: SOLUTION */}
+      {/* CENTER: SCANNER VISUAL */}
+      <div className="w-full h-full flex items-center justify-center relative z-10">
+        <BioDigitalScanner isScanned={isSolved} onToggle={() => setIsSolved(!isSolved)} />
+      </div>
+
+      {/* RIGHT SIDE: SOLUTION TEXT */}
       <motion.div 
-        className="w-1/2 h-full flex flex-col items-center justify-center p-12 relative z-20 bg-[#0a0a0a]"
-        initial={{ x: 100, opacity: 0 }}
+        className="absolute right-0 top-0 w-1/3 h-full flex flex-col justify-center items-end p-12 z-20 pointer-events-none text-right"
         animate={{ 
-          x: isInView ? 0 : 100,
-          opacity: isInView ? 1 : 0
+          opacity: isSolved ? 1 : 0.2,
+          x: isSolved ? 0 : 50
         }}
-        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.8 }}
       >
-        {/* Background Glow */}
-        <div className="absolute inset-0 bg-blue-900/10 radial-gradient-center blur-3xl" />
-
-        <div className="max-w-md text-center relative">
-          <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
-            <CheckCircle2 size={40} />
+        <div className="max-w-md flex flex-col items-end">
+          <div className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-cyan-500/10 text-cyan-500 border border-cyan-500/20 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+            <CheckCircle2 size={32} />
           </div>
-          <h2 className="text-4xl font-bold text-white mb-4">AI-Powered Precision</h2>
-          <p className="text-xl text-slate-300 leading-relaxed">
-            Instant analysis. <span className="text-blue-400 font-bold">99.8%</span> accuracy. 
-            Freeing doctors to focus on patients, not paperwork.
+          <h2 className="text-3xl font-bold text-cyan-400 mb-4">AI Precision</h2>
+          <p className="text-lg text-slate-300 leading-relaxed">
+            Helps practitioners and patients turn TCM intake into a <span className="text-cyan-400 font-bold">clear, structured summary</span> and draft recommendations for discussion.
           </p>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-8 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold shadow-lg shadow-blue-600/20 transition-all"
-          >
-            See How It Works
-          </motion.button>
         </div>
       </motion.div>
 

@@ -346,7 +346,7 @@ const ResultsComparison = ({ isActive = true }: ResultsComparisonProps) => {
               <div className="pt-4 md:pt-6 text-center flex-1">
                 <div className="flex items-center justify-center gap-2 text-red-400 font-bold tracking-wider mb-1 text-xs uppercase">
                   <AlertTriangle className="w-3 h-3" />
-                  Manual Process
+                  Current standard
                 </div>
                 <h3 className="text-xl font-bold text-white tracking-tight">Original</h3>
               </div>
@@ -368,7 +368,7 @@ const ResultsComparison = ({ isActive = true }: ResultsComparisonProps) => {
               <div className="pt-4 md:pt-6 text-center flex-1">
                  <div className="flex items-center justify-center gap-2 text-emerald-400 font-bold tracking-wider mb-1 text-xs uppercase">
                   <Zap className="w-3 h-3" />
-                  Automated
+                  My Method
                 </div>
                 <h3 className="text-xl font-bold text-white tracking-tight">Optimised</h3>
                 

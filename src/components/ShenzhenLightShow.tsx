@@ -418,7 +418,6 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
             SHENZHEN // 深圳
           </motion.div>
           <div className="h-0.5 bg-gradient-to-r from-cyan-500 to-transparent w-48" />
-          <div className="text-xs text-cyan-700 font-mono">LIGHT_SHOW_SEQUENCE: ACTIVE</div>
         </div>
       </div>
 

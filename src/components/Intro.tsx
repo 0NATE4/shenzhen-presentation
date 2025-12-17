@@ -130,7 +130,7 @@ const Intro = () => {
           </h1>
           
           <p className="text-sm md:text-base text-gray-500 tracking-[0.3em] uppercase font-medium opacity-80">
-            Internship Experience
+            Nathan Chung
           </p>
         </motion.div>
       </div>
