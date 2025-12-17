@@ -4,6 +4,7 @@ import ProblemSolution from './components/ProblemSolution';
 import Chatbot from './components/Chatbot';
 import ResultsComparison from './components/ResultsComparison';
 import DroneSwarm from './components/DroneSwarm';
+import PhotoStack from './components/PhotoStack';
 import { useInView } from './hooks/useInView';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [resultsRef, resultsInView] = useInView({ threshold: 0.1 });
   const [lightShowRef, lightShowInView] = useInView({ threshold: 0.1 });
   const [droneRef, droneInView] = useInView({ threshold: 0.1 });
+  const [photoRef] = useInView({ threshold: 0.1 });
 
   return (
     <div className="snap-container bg-[#0a0a0a] text-white">
@@ -33,6 +35,9 @@ function App() {
       </div>
       <div ref={droneRef} className="snap-start h-screen w-full">
         <DroneSwarm isActive={droneInView} />
+      </div>
+      <div ref={photoRef} className="snap-start h-screen w-full">
+        <PhotoStack />
       </div>
     </div>
   );
