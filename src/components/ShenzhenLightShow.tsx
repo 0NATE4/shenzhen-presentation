@@ -301,6 +301,17 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
           
           {/* LED Screen & Effects (Clipped) */}
           <g clipPath="url(#leftTowerClip)">
+             <motion.rect 
+                x="0" y="0" width="1920" height="1080"
+                fill="url(#screenGradient)" opacity="0.8"
+                animate={{ y: [500, -500] }}
+                transition={{ duration: 8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+             />
+             <rect x="0" y="0" width="1920" height="1080" fill="url(#pixelGrid)" opacity="0.4" />
+          </g>
+          
+          {/* Overlays / Outlines */}
+          <g transform="translate(480, 250) scale(0.9)">
              {/* Curved Neon Edges */}
              <motion.path 
                d="M 60 100 Q 30 500 0 1080" 
