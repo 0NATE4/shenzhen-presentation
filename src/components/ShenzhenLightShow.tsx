@@ -231,15 +231,15 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
 
             {/* --- GRADIENTS --- */}
             <linearGradient id="centerWingGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#ef4444" /> {/* Red */}
-              <stop offset="50%" stopColor="#fbbf24" /> {/* Amber/Gold */}
-              <stop offset="100%" stopColor="#ef4444" /> {/* Red */}
+              <motion.stop offset="0%" animate={{ stopColor: ["#ef4444", "#22d3ee", "#a855f7", "#ef4444"] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }} />
+              <motion.stop offset="50%" animate={{ stopColor: ["#fbbf24", "#ef4444", "#22d3ee", "#fbbf24"] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }} />
+              <motion.stop offset="100%" animate={{ stopColor: ["#ef4444", "#22d3ee", "#a855f7", "#ef4444"] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }} />
             </linearGradient>
 
             <linearGradient id="screenGradient" x1="0" y1="1" x2="0" y2="0">
                <stop offset="0%" stopColor="#020617" />
-               <stop offset="40%" stopColor="#3b0764" /> 
-               <stop offset="60%" stopColor="#22d3ee" /> 
+               <motion.stop offset="40%" animate={{ stopColor: ["#3b0764", "#1e3a8a", "#0f766e", "#3b0764"] }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} /> 
+               <motion.stop offset="60%" animate={{ stopColor: ["#22d3ee", "#a855f7", "#ef4444", "#22d3ee"] }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} /> 
                <stop offset="100%" stopColor="#020617" />
             </linearGradient>
 
@@ -301,29 +301,30 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
           
           {/* LED Screen & Effects (Clipped) */}
           <g clipPath="url(#leftTowerClip)">
-             <motion.rect 
-                x="0" y="0" width="1920" height="1080"
-                fill="url(#screenGradient)" opacity="0.8"
-                animate={{ y: [500, -500] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-             />
-             <rect x="0" y="0" width="1920" height="1080" fill="url(#pixelGrid)" opacity="0.4" />
-          </g>
-          
-          {/* Overlays / Outlines */}
-          <g transform="translate(480, 250) scale(0.9)">
              {/* Curved Neon Edges */}
              <motion.path 
                d="M 60 100 Q 30 500 0 1080" 
-               fill="none" stroke="#22d3ee" strokeWidth="4" filter="url(#neonGlow)"
-               animate={{ opacity: [0.4, 1, 0.4] }}
-               transition={{ duration: 3, repeat: Infinity }}
+               fill="none" strokeWidth="4" filter="url(#neonGlow)"
+               animate={{ 
+                 opacity: [0.4, 1, 0.4],
+                 stroke: ["#22d3ee", "#a855f7", "#ef4444", "#22d3ee"]
+               }}
+               transition={{ 
+                 opacity: { duration: 3, repeat: Infinity },
+                 stroke: { duration: 5, repeat: Infinity, ease: "linear" }
+               }}
              />
              <motion.path 
                d="M 140 100 Q 170 500 200 1080" 
-               fill="none" stroke="#c026d3" strokeWidth="4" filter="url(#neonGlow)"
-               animate={{ opacity: [0.4, 1, 0.4] }}
-               transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+               fill="none" strokeWidth="4" filter="url(#neonGlow)"
+               animate={{ 
+                 opacity: [0.4, 1, 0.4],
+                 stroke: ["#c026d3", "#ef4444", "#22d3ee", "#c026d3"]
+               }}
+               transition={{ 
+                 opacity: { duration: 3, repeat: Infinity, delay: 1.5 },
+                 stroke: { duration: 5, repeat: Infinity, ease: "linear", delay: 1 }
+               }}
              />
              {/* Flat Top Closure */}
              <path d="M 60 100 L 140 100" stroke="#22d3ee" strokeWidth="3" filter="url(#neonGlow)" />
@@ -339,7 +340,7 @@ export default function ShenzhenLightShow({ isActive = true }: LightShowProps) {
                 x="0" y="0" width="1920" height="1080"
                 fill="url(#screenGradient)" opacity="0.9"
                 animate={{ y: [800, -200] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 6, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
              />
              <rect x="0" y="0" width="1920" height="1080" fill="url(#pixelGrid)" opacity="0.4" />
           </g>
