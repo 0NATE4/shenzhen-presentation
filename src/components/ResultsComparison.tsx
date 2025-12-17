@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
-import { Play, Clock, AlertTriangle, Zap } from 'lucide-react';
+import { AlertTriangle, Clock, Play, Zap } from 'lucide-react';
+
+interface ResultsComparisonProps {
+  isActive?: boolean;
+}
 
 /**
  * RESULTS COMPARISON COMPONENT
@@ -9,7 +13,7 @@ import { Play, Clock, AlertTriangle, Zap } from 'lucide-react';
  * Right side: Efficient, orderly, cheap.
  * * Uses Matter.js for physics rendering.
  */
-const ResultsComparison = () => {
+const ResultsComparison = ({ isActive = true }: ResultsComparisonProps) => {
   const sceneRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -49,6 +53,17 @@ const ResultsComparison = () => {
       textGreen: '#10b981'
     }
   };
+
+  // Pause/Resume logic
+  useEffect(() => {
+    if (!runnerRef.current || !engineRef.current) return;
+
+    if (isActive) {
+      Matter.Runner.run(runnerRef.current, engineRef.current);
+    } else {
+      Matter.Runner.stop(runnerRef.current);
+    }
+  }, [isActive]);
 
   const initSimulation = () => {
     if (!sceneRef.current) return;
