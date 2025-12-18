@@ -10,6 +10,12 @@ import guilinImg from '../assets/guilin.jpg';
 import mixueImg from '../assets/mixue.jpg';
 import skylineImg from '../assets/skyline.jpg';
 import taobaoImg from '../assets/taobao.jpg';
+import bunImg from '../assets/bun.jpg';
+import clawImg from '../assets/claw.jpg';
+import dogImg from '../assets/dog.jpg';
+import guangzhou2Img from '../assets/guangzhou2.jpg';
+import scooterImg from '../assets/scooter.jpg';
+import skiImg from '../assets/ski.jpg';
 
 /**
  * MOCK DATA
@@ -63,6 +69,42 @@ const INITIAL_MEMORIES: Memory[] = [
     src: skylineImg, 
     caption: 'Skyline',
     location: 'Futian'
+  },
+  { 
+    id: 8, 
+    src: bunImg, 
+    caption: 'Pineapple bun.',
+    location: 'Street Food'
+  },
+  { 
+    id: 9, 
+    src: clawImg, 
+    caption: 'Claw.',
+    location: 'Arcade'
+  },
+  { 
+    id: 10, 
+    src: dogImg, 
+    caption: 'Arcade dogs.',
+    location: 'Park'
+  },
+  { 
+    id: 11, 
+    src: guangzhou2Img, 
+    caption: 'Guangzhou again',
+    location: 'Guangzhou'
+  },
+  { 
+    id: 12, 
+    src: scooterImg, 
+    caption: 'Speeding in guilin.',
+    location: '10 mile gallery'
+  },
+  { 
+    id: 13, 
+    src: skiImg, 
+    caption: 'Skiing.',
+    location: 'Window of the World'
   },
 ];
 
